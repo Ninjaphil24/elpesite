@@ -91,7 +91,6 @@ if (isset($_POST['insert'])) {
     
     <!-- navbar toggle start         -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <!-- navbar toggle end -->
     <link rel="shortcut icon" type="image/png" href="img/callas.jpg">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -109,10 +108,7 @@ if (isset($_POST['insert'])) {
   </div>
 </section>
 
-    <header>
-    <h5>Hosted by:</h5>
-    <a href="https://spoiledeggs.eu5.org/" target="_blank" class="logo"> <img src="img/egglogo.png" alt=""> </a>
-
+    <header>   
       <div class="menu-toggle"></div>
       <nav>
         <ul>
@@ -153,12 +149,12 @@ if (isset($_POST['insert'])) {
                 <form method="post" enctype="multipart/form-data">
                 <label style="margin:10px;">ΘΕΜΑ ΑΝΑΡΤΗΣΗΣ</label>
                 <select class="form-control" name="reviewtype">
-                  <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ<option>
-                    <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ<option>
-                    <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ<option>
+                  <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
+                    <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ</option>
+                    <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ</option>
                     <?php if($fetch_info['usertype']=='admin'){
-                    echo '<option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ<option>';}?>
-                    <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ<option>
+                    echo '<option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>';}?>
+                    <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
                   </select> <br>
                   
                 <div class="form-group">
@@ -191,11 +187,11 @@ if (isset($_POST['insert'])) {
   <div class="search-user">
     <form action="search.php" method="POST"> 
       <select class="form-control" name="search">
-          <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ<option>
-          <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ<option>
-          <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ<option>
-          <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ<option>
-          <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ<option>
+          <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
+          <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ</option>
+          <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ</option>
+          <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>
+          <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
       </select>
         <!-- <input type="text" name="search" placeholder="Search"> -->
       <div class="categoryButtons">
@@ -354,15 +350,23 @@ if (isset($_POST['insert'])) {
 </ul>
 </body>
 <!-- Modal Start -->
-<script src="js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- Modal End -->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<!-- Your custom script -->
 <script type="text/javascript">
-      $(document).ready(function(){
-        $('.menu-toggle').click(function(){
-          $('.menu-toggle').toggleClass('active')
-          $('nav').toggleClass('active')
-        })});
+$(document).ready(function(){
+  $('.menu-toggle').click(function(){
+    $('.menu-toggle').toggleClass('active');
+    $('nav').toggleClass('active');
+  });
+});
 </script>
 </html>

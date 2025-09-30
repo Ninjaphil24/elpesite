@@ -110,9 +110,6 @@ if (isset($_POST['insert'])) {
 </section>
 
     <header>
-    <h5>Hosted by:</h5>
-    <a href="https://spoiledeggs.eu5.org/" target="_blank" class="logo"> <img src="img/egglogo.png" alt=""> </a>
-
       <div class="menu-toggle"></div>
       <nav>
         <ul>
@@ -153,12 +150,12 @@ if (isset($_POST['insert'])) {
                 <form method="post" enctype="multipart/form-data">
                 <label style="margin:10px;">ΘΕΜΑ ΑΝΑΡΤΗΣΗΣ</label>
                 <select class="form-control" name="reviewtype">
-                  <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ<option>
-                    <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ<option>
-                    <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ<option>
+                  <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
+                    <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ</option>
+                    <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ</option>
                     <?php if($fetch_info['usertype']=='admin'){
-                    echo '<option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ<option>';}?>
-                    <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ<option>
+                    echo '<option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>';}?>
+                    <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
                   </select> <br>
                   
                 <div class="form-group">
@@ -191,11 +188,11 @@ if (isset($_POST['insert'])) {
   <div class="search-user">
     <form action="search.php" method="POST"> 
       <select class="form-control" name="search">
-          <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ<option>
-          <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ<option>
-          <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ<option>
-          <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ<option>
-          <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ<option>
+          <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
+          <option value="ΑΓΓΕΛΙΑ_ΕΡΓΑΣΙΑΣ">ΑΓΓΕΛΙΑ ΕΡΓΑΣΙΑΣ</option>
+          <option value="ΑΓΓΕΛΙΑ_ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ">ΑΓΓΕΛΙΑ ΑΚΡΟΑΣΕΩΝ/ΔΙΑΓΩΝΙΣΜΩΝ</option>
+          <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>
+          <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
       </select>
         <!-- <input type="text" name="search" placeholder="Search"> -->
       <div class="categoryButtons">

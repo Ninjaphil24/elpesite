@@ -2,41 +2,40 @@ body {
     margin: 0;
     padding: 0;
     background: url(img/music3.jpg);
-	background-repeat:repeat;
-	background-attachment:fixed;
-	background-position:center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;
     background-size: 600px;
 }
 
-section
-{
-  position: relative;
-  display: flex;
-  max-width: 1200px;
-  height: 10vh;
-  margin: 0;
-  padding: 0;
+section {
+    position: relative;
+    display: flex;
+    max-width: 1200px;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
 }
-section .user h3
-{
-  background: white;
-  border-radius: 30px;
-  font-size: 2vw;
-  padding: 3px;
-  display: block;
-  float: left;
-  color: rgb(4, 0, 255);
+
+section .user h3 {
+    background: white;
+    border-radius: 30px;
+    font-size: 2vw;
+    padding: 6px;
+    display: block;
+    float: left;
+    color: rgb(4, 0, 255);
 }
-section .crop img
-{
-  background: white;
-  height: 50px;
-  width: 50px;
-  margin: 10px;
-  object-fit: cover;
- border-radius: 50%;
- display: block;
-  float: left;
+
+section .crop img {
+    background: white;
+    height: 50px;
+    width: 50px;
+    margin: 10px;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+    float: left;
 }
 
 nav {
@@ -57,11 +56,13 @@ nav ul {
 nav ul li {
     padding: 30px 10px;
 }
+
 nav ul li a {
     text-decoration: none;
     padding: 8px;
     color: green;
 }
+
 nav ul li a:hover {
     background-color: green;
     color: white;
@@ -69,10 +70,10 @@ nav ul li a:hover {
 
 .profilePicCheck {
     display: flex;
-    justify-content: center;    
+    justify-content: center;
 }
 
-.profilePicCheck img{
+.profilePicCheck img {
     background-color: white;
     padding: 5px;
     width: 350px;
@@ -83,7 +84,7 @@ nav ul li a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 .upload_image .chooseButton {
@@ -114,8 +115,13 @@ nav ul li a:hover {
 }
 
 @keyframes blinking {
-    from {color: red;}
-    to {color: white;}
+    from {
+        color: red;
+    }
+
+    to {
+        color: white;
+    }
 }
 
 .upload_image .uploadButton input[type=submit] {
@@ -127,6 +133,7 @@ nav ul li a:hover {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 .upload_image .uploadButton input[type=submit]:hover {
     background-color: rgb(0, 209, 0);
 }
@@ -140,6 +147,7 @@ nav ul li a:hover {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 .upload_image .deleteButton a:hover {
     background-color: #ff0000;
 }
@@ -150,7 +158,7 @@ nav ul li a:hover {
         padding: 30px 5px;
 
     }
-    
+
     section .user h3 {
         font-size: 15px;
     }

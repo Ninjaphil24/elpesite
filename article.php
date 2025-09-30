@@ -108,10 +108,6 @@ if($email != false && $password != false){
 
 
 <header>
-<h5>Hosted by:</h5>
-    <a href="https://spoiledeggs.eu5.org/" target="_blank" class="logo"> <img src="img/egglogo.png" alt=""> </a>
-
-
       <div class="menu-toggle"></div>
       <nav>
         <ul>
@@ -140,41 +136,7 @@ if($email != false && $password != false){
           </div>
       </div>
 
-      <div class="modal" id="contactModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Contact</h5>
-                </div>
-                <div class="modal-body">
-                    <h3>For any problems please contact the administrator of this site on spoiledeggs.eu5@gmail.com</h3>
-                  </div>
-                  <div class="modal-footer">
-                    <button data-dismiss="modal">Close</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-    <div class="modal" id="logInModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Log In Form</h5>
-                </div>
-                <div class="modal-body">
-                    <input type="email" id="userLEmail" class="form-control" placeholder="Your Email">
-                    <input type="password" id="userLPassword" class="form-control" placeholder="Password">
-                </div>
-                <div class="modal-footer">
-              <ul><li><a href="register.php">Register</a></li></ul>
-                    <button id="loginBtn">Log In</button>
-                    <button data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-     <br>
+      
      <?php
    
      $eid= mysqli_real_escape_string($con, $_GET['eid']);
@@ -371,8 +333,12 @@ $articles2[] = $row2;
 
  
   <!-- Modal Start -->
-  <script src="js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+  <!-- jQuery (latest stable) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS (compatible with Bootstrap 4.3.1) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
   <!-- Modal End -->
 
   <script type="text/javascript">

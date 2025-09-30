@@ -43,7 +43,7 @@ if($email != false && $password != false){
 
    if (isset($_POST['insert'])) {
 
-     $comment= $con->real_escape_string(nl2br($_POST['comment'],false));
+     $comment= $con->real_escape_string($_POST['comment']);
 
 
      $errors = array();
@@ -85,10 +85,7 @@ if($email != false && $password != false){
     <title>ΕΛΠΕ</title>
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Modal Start -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- Modal End -->
-   
+    
 
     <link rel="shortcut icon" type="image/png" href="img/callas.jpg">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -118,10 +115,6 @@ if($email != false && $password != false){
 
 
 <header>
-<h5>Hosted by:</h5>
-    <a href="https://spoiledeggs.eu5.org/" target="_blank" class="logo"> <img src="img/egglogo.png" alt=""> </a>
-
-
       <div class="menu-toggle"></div>
       <nav>
         <ul>
@@ -302,7 +295,7 @@ $articles2[] = $row2;
              <div class='reviewinfo'>
              <img src='<?php echo isset($row['profilePic']) ? $row['profilePic']: './profilepics/beard.png';?>'><?php echo "
              <h5>".$row['firstName']."&nbsp;".$row['lastName']."&nbsp;on&nbsp;".$row['commentCreatedOn']."&nbsp;wrote</h5></div>
-            <div class='comment'><h4>".$row['comment']."</h4>";
+            <div class='comment'><h4>".nl2br($row['comment'],false)."</h4>";
             //Edit Button
             if($fetch_info['id'] == $row['userID']){?>
             <div class="buttons">
@@ -349,8 +342,15 @@ $articles2[] = $row2;
 
  
   <!-- Modal Start -->
-  <script src="js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+  <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+
+<!-- Bootstrap -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
   <!-- Modal End -->
 
   <script type="text/javascript">

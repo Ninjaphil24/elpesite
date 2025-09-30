@@ -120,9 +120,7 @@ if (isset($_POST['insert'])) {
 </section>
 
     <header>
-    <h5>Hosted by:</h5>
-    <a href="https://spoiledeggs.eu5.org/" target="_blank" class="logo"> <img src="img/egglogo.png" alt=""> </a>
-
+   
       <div class="menu-toggle"></div>
       <nav>
         <ul>
@@ -372,6 +370,8 @@ if (isset($_POST['insert'])) {
 		echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
 		} ?>
 </ul>
+<div class="distance" style="height: 100px;"></div>
+
 </body>
 <!-- Modal Start -->
 <script src="js/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
