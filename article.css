@@ -1,0 +1,652 @@
+*
+{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: sans-serif, tahoma;
+
+}
+
+
+body
+{
+  background: url(img/music3.jpg);
+	background-repeat:repeat;
+	background-attachment:fixed;
+	background-position:center;
+  background-size: 600px;
+}
+.user
+{
+  position: relative;
+  width: 40%;
+  display: inline-block;
+  float: right;
+}
+
+section
+{
+  position: relative;
+  display: flex;
+  max-width: 1200px;
+  height: 10vh;
+  margin: 0;
+  padding: 0;
+}
+section .user h3
+{
+  background: white;
+  border-radius: 30px;
+  font-size: 2vw;
+  padding: 3px;
+  display: block;
+  float: left;
+  color: rgb(4, 0, 255);
+}
+section .crop img
+{
+  background: white;
+  height: 50px;
+  width: 50px;
+  margin: 10px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  float: left;
+}
+
+
+
+header
+{
+  position: relative;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px;
+  background: #fff;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.logo img
+{
+  height: 50px;
+  float: left;
+
+}
+nav
+{
+  float: right;
+  }
+.clearfix
+{
+  clear: both;
+}
+.logo ul
+{
+  list-style-type: none;
+
+}
+
+nav ul, .modal-footer ul
+{
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+nav ul li, .modal-footer ul li
+{
+  list-style: none;
+}
+nav ul li a, .modal-footer ul li a
+{
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #262626;
+}
+nav ul li a.active,
+nav ul li a:hover,
+.modal-footer ul li a:hover
+{
+  background: #069370;
+  text-decoration: none;
+  color: #fff;
+  transition: 0.5s;
+}
+.modal .modal-footer button
+{
+  position: relative;  
+  display: inline-block;
+  padding: 8px;
+  text-decoration: none;
+  color: #262626;
+  font-size: 16px;
+}
+.modal .modal-footer button:hover
+{
+  background: #93067b;
+  color: #fff;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.search-user form
+{
+  width: 100%;
+  position: relative;
+  padding-left: 20px;
+  padding-top: 10px;
+  /* margin: 20px auto; */
+}
+.search-user input
+{
+  width: 70%;
+  padding: 0px 20px;
+  height: 40px;
+  font-size: 22px;
+
+}
+
+
+.search-user button
+{
+  position: relative;
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-decoration: none;
+  color: #262626;
+  font-size: 16px;
+}
+.search-user button:hover
+{
+  background: #069370;
+  color: #fff;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+#logInModal input {
+    margin-top: 10px;
+}
+
+.link
+{
+  position: relative;
+}
+
+.myButton {
+  margin-left:46%;
+	box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	background-color:#007dc1;
+	border-radius:3px;
+	border:1px solid #124d77;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:10px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+	background-color:#0061a7;
+}
+
+
+section .formbox
+{
+  position: relative;
+  height: 100vh;
+  background: #1c2431;
+  display: grid;
+}
+
+.box
+{
+  position: relative;
+  background: rgb(22, 175, 167);
+  width: 600px;
+  height: auto;
+  border-radius: 10px;
+  padding-top: 10px;
+  margin: auto;
+}
+
+.box h3
+{
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-size: 40px;
+  margin: 10px;
+  font-weight: 400;
+}
+
+.box p
+{
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+
+.box  input::-webkit-input-placeholder { /* Edge */
+  color: #8bbbb3;
+}
+
+.box  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #8bbbb3;
+}
+
+.box input::placeholder {
+  color: #8bbbb3;
+}
+
+.deleteentry {
+  display:flex;
+  justify-content:center;
+}
+
+.pdf {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  width: 100%;
+}
+
+.pdf button {
+  box-shadow: 0px 1px 0px 0px #fff6af;
+  background:linear-gradient(to bottom, #ff6224 5%, #a6faa3 100%);
+	background-color:#7824ff;
+	border:2px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:rgb(6, 3, 202);
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:12px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffe524;
+}
+.pdf button:hover {
+	background:linear-gradient(to bottom, #fafaa3 5%, #f8ff24 100%);
+	background-color:#fafaa3;
+}
+
+.pdf #pdf p {
+  width: 100%;
+}
+
+.video
+{
+  position: relative;
+  left: 35%;
+  height: 55px;
+  width: 30%;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #1304e9 5%, #3f00eb 100%);
+	background-color:#63b8ee;
+	border-radius:6px;
+	border:1px solid #3866a3;
+	display:inline-block;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
+}
+.video .text
+{
+  padding-top: 12px;
+  text-align: center;
+}
+.video span
+{
+  font-size: x-large;
+  color: #fff;
+  
+}
+.video:hover {
+	background:linear-gradient(to bottom, #cf46a6 5%, #e0ee63 100%);
+	background-color:#e2cdcd;
+}
+.video a:hover
+{
+  text-decoration: none;
+}
+.video:active {
+	position:relative;
+	top:1px;
+}
+
+.voteButtons {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+.voteButtons .space {
+  display: flex;
+  justify-content: center;
+  color: white;
+  width: 250px;
+  font-size: 20px;
+}
+
+.voteButtons .innerSpace {
+  width: 3px;
+  background-color: white;
+}
+
+.voteButtons .yesVote {
+  display: grid;
+}
+
+.voteButtons .yesVote ol {
+  display: none;
+  padding-left: 30px;
+  background-color: rgb(22, 175, 167) ;
+}
+
+.voteButtons .yesVote a {
+  text-decoration: none;
+  background-color: green;
+  color: white;
+  font-size: 25px;
+  padding:20px 50px;
+}
+
+.voteButtons .yesVote a:hover {
+  border: 2px solid white;
+  background-color: rgb(0, 255, 0);
+  color:rgb(0, 0, 0);
+  font-size: 28px;
+}
+
+.voteButtons .yesVote p {
+  text-align: center;
+  background-color: green;
+  color: white;
+}
+
+.voteButtons .noVote {
+  display: grid;
+}
+.voteButtons .noVote ol {
+  display: none;
+  padding-left: 30px;
+  background-color: rgb(22, 175, 167);
+}
+
+.voteButtons .noVote a {
+  text-decoration: none;
+  background-color: rgb(141, 0, 0);
+  color: white;
+  font-size: 25px;
+  padding:20px 50px;
+}
+
+.voteButtons .noVote a:hover {
+  border: 2px solid white;
+  background-color: red;
+  color:rgb(0, 0, 0);
+  font-size: 28px;
+}
+
+.voteButtons .noVote p {
+  text-align:center;
+  background-color: rgb(141, 0, 0);
+  color: white;
+}
+
+.voteButtons ol li {
+  padding: 5px;
+}
+
+.voteButtons button {
+  background-color: rgb(22, 175, 167);
+}
+
+.voteButtons button:hover {
+  background-color: rgb(32, 253, 242);
+}
+
+.commentsin 
+{
+  margin-left: 12%;
+  width: 76%;
+}
+
+.commentsin textarea
+{
+  background-color: #78fc7f;
+  width: 100%;
+  padding: 0px 20px;
+  height: 160px;
+  font-size: 22px;
+}
+.commentsin button
+{
+  position: relative;
+  width: 20%;
+	box-shadow:inset 0px 1px 0px 0px #bee2f9;
+	background:linear-gradient(to bottom, #63b8ee 5%, #468ccf 100%);
+	background-color:#63b8ee;
+	border-radius:6px;
+	border:1px solid #3866a3;
+	display:inline-block;
+	cursor:pointer;
+	color:#14396a;
+	font-family:Arial;
+	font-size:25px;
+	font-weight:bold;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #7cacde;
+}
+
+.commentsin button span
+{
+  font-size: larger;
+  color: #fff;
+}
+.commentsin button:hover {
+	background:linear-gradient(to bottom, #cf46a6 5%, #e0ee63 100%);
+	background-color:#e2cdcd;
+}
+
+.commentsin p
+{
+  background-color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: larger;
+  color: rgb(255, 0, 0);
+}
+
+.commentsout
+{
+  margin-left: 12%;
+  width: 76%;
+  /* background:linear-gradient(to bottom, #cf46a6 5%, #2724f0 100%); */
+	background-color:rgb(22, 175, 167);
+}
+
+.commentsout .reviewinfo {
+  display: flex;
+  justify-content: baseline;
+}
+
+.commentsout h5, h4
+{
+  padding: 1%;
+  color: rgb(0, 0, 0);
+}
+
+.commentsout img
+{
+  background: white;
+  height: 40px;
+  width: 40px;
+  margin: 10px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.buttons {
+  display: flex;
+}
+
+.delete button {
+  box-shadow: 0px 1px 0px 0px #fff6af;
+  background:linear-gradient(to bottom, #ff6224 5%, #a6faa3 100%);
+	background-color:#7824ff;
+	border:2px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#ff0000;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:12px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffe524;
+}
+.delete button:hover {
+	background:linear-gradient(to bottom, #fafaa3 5%, #f8ff24 100%);
+	background-color:#fafaa3;
+}
+.delete button:active {
+	position:relative;
+	top:1px;
+}
+.delete a {
+  box-shadow: 0px 1px 0px 0px #fff6af;
+	background:linear-gradient(to bottom, #ff6224 5%, #a6faa3 100%);
+	background-color:#7824ff;
+	border:2px solid #ffaa22;
+	display:inline-block;
+	cursor:pointer;
+	color:#ff0000;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 7px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffe524;
+}
+.delete a:hover {
+	background:linear-gradient(to bottom, #fafaa3 5%, #f8ff24 100%);
+	background-color:#fafaa3;
+}
+.delete a:active {
+	position:relative;
+	top:1px;
+}
+
+@media (max-width: 1200px)
+{
+  header
+  {
+    margin: 20px;
+  }
+}
+@media (max-width: 768px)
+{
+  section .user h3
+  {
+  font-size: 3vw;
+  }
+  .menu-toggle
+  {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    float: right;
+    cursor: pointer;
+    text-align: center;
+    font-size: 30px;
+    color: #069370;
+  }
+  .menu-toggle:before
+  {
+    content: '\f0c9';
+    font-family: fontAwesome;
+    line-height: 40px;
+  }
+  .menu-toggle.active:before
+  {
+    content: '\f00d';
+  }
+  nav
+  {
+    display: none;
+  }
+  nav.active
+  {
+    display: block;
+    width: 100%;
+  }
+  nav.active ul
+  {
+    display: block;
+  }
+  nav.active ul li a
+  {
+    margin: 0;
+  }
+  .box
+  {
+    width: 100%;
+  }
+  .video
+  {
+    left: 0;
+    width: 100%;
+  }
+  .like
+  {
+    left: 0;
+    width: 100%;
+  }
+  .judgevote
+  {
+    left: 0;
+    width: 100%;
+  }
+  .logout
+  {
+    left: 0;
+    width: 100%;
+  }
+  .commentsin
+  {
+    margin-left: 0;
+    width: 100%;
+  }
+  .commentsin input
+  {
+    width: 100%;
+  }
+  .commentsin button 
+  {
+    width: 40%;
+  }
+  .commentsout
+  {
+    margin-left: 0;
+    width: 100%;
+  }
+}
