@@ -43,7 +43,7 @@ if($email != false && $password != false){
 
    if (isset($_POST['insert'])) {
 
-    $comment= $con->real_escape_string(nl2br($_POST['comment'],false));
+    $comment= $con->real_escape_string($_POST['comment']);
 
 
      $errors = array();
@@ -324,7 +324,7 @@ $articles2[] = $row2;
             <div class='reviewinfo'>
             <img src='<?php echo isset($row['profilePic']) ? $row['profilePic']: './profilepics/beard.png';?>'><?php echo "
              <h5>".$row['firstName']."&nbsp;".$row['lastName']."&nbsp;on&nbsp;".$row['commentCreatedOn']."&nbsp;wrote</h5></div>
-            <div class='comment'><h4>".$row['comment']."</h4>";
+            <div class='comment'><h4>".nl2br($row['comment'],false)."</h4>";
             //Edit Button
             if($fetch_info['id'] == $row['userID']){?>
             <div class="buttons">

@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-4 offset-md-4 form login-form">
                 <form action="index.php" method="POST" autocomplete="">
-                    <h2 class="text-center">Είσοδος Μελών ΕΛΠΕTest</h2>
+                    <h2 class="text-center">Είσοδος Μελών ΕΛΠΕ</h2>
                     <p class="text-center">Login with your email and password.</p>
                     <?php
                     if(count($errors) > 0){
