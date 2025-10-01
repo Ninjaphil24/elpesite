@@ -1,96 +1,7 @@
 <?php
 
-    // The session start works in conjuction with the logged in issue.
-    session_start();
-    require "connection.php";
-    $email  = "";
-    $name   = "";
-    $errors = [];
-    //require_once "controllerUserData.php";
-
-    if (! empty($_COOKIE["email"])) {
-        $email    = $_COOKIE['email'];
-        $password = $_COOKIE['password'];
-
-    } else {
-        $email    = $_SESSION['email'];
-        $password = $_SESSION['password'];
-    }
-    if ($email != false && $password != false) {
-        $sql     = "SELECT * FROM usertable WHERE email = '$email'";
-        $run_Sql = mysqli_query($con, $sql);
-        if ($run_Sql) {
-            $fetch_info = mysqli_fetch_assoc($run_Sql);
-            $status     = $fetch_info['status'];
-            $code       = $fetch_info['code'];
-            if ($status == "verified") {
-                if ($code != 0) {
-                    header('Location: reset-code.php');
-                }
-            } else {
-                header('Location: user-otp.php');
-            }
-        }
-    } else {
-        header('Location: index.php');
-    }
-    $eid        = mysqli_real_escape_string($con, $_GET['eid']);
-    $reviewtype = mysqli_real_escape_string($con, $_GET['reviewtype']);
-    $title      = mysqli_real_escape_string($con, $_GET['title']);
-
-    if (isset($_POST['insert'])) {
-
-        $comment = $con->real_escape_string($_POST['comment']);
-
-        $errors = [];
-
-        if (empty($comment)) {
-            $errors['r'] = "Review Required";
-        }
-
-        if (count($errors) == 0) {
-
-            $query = "INSERT INTO comments (userID, entryID, comment, commentCreatedOn) VALUES ('" . $fetch_info['id'] . "','$eid','$comment',NOW())";
-
-            $result = mysqli_query($con, $query);
-
-            if ($result) {
-                header("Location: article.php?eid=$eid&reviewtype=$reviewtype&title=$title#comment");
-                die();
-
-                // echo "<script>alert('done')</script>"
-            } else {
-
-                echo "<script>alert('failed')</script>";
-            }
-        }
-    }
-    // Echoing the number of entries, in this case comments
-    if (isset($_POST['uploadAudio']) && isset($_FILES['audioComment'])) {
-        $userID     = $fetch_info['id'];
-        $eid        = $_POST['eid'];
-        $reviewtype = $_POST['reviewtype'];
-        $title      = $_POST['title'];
-
-        $targetDir = "audio/";
-        if (! is_dir($targetDir)) {
-            mkdir($targetDir, 0777, true);
-        }
-
-        $filename   = uniqid() . "_" . basename($_FILES['audioComment']['name']);
-        $targetFile = $targetDir . $filename;
-
-        if (move_uploaded_file($_FILES['audioComment']['tmp_name'], $targetFile)) {
-            $query = "INSERT INTO comments (userID, entryID, comment, commentCreatedOn)
-                  VALUES ('$userID', '$eid', '$targetFile', NOW())";
-            mysqli_query($con, $query);
-            header("Location: article.php?eid=$eid&reviewtype=$reviewtype&title=$title#comment");
-            exit();
-        } else {
-            echo "Error uploading audio file.";
-        }
-    }
-
+    require_once __DIR__ . '/php/sessionbasics.php';
+    require_once __DIR__ . '/php/commentaudio.php';
 ?>
 
 <!DOCTYPE html>
@@ -118,7 +29,8 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                                                                                           <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ
+      <?php echo $fetch_info['firstName'] ?></h3>
 </div>
 </section>
 <header>
@@ -151,143 +63,12 @@
       </div>
 
 
-     <?php
-
-         $eid        = mysqli_real_escape_string($con, $_GET['eid']);
-         $reviewtype = mysqli_real_escape_string($con, $_GET['reviewtype']);
-         $title      = mysqli_real_escape_string($con, $_GET['title']);
-
-         $sql = "SELECT * FROM entry WHERE eid='$eid' AND title='$title'";
-
-         $result       = mysqli_query($con, $sql);
-         $queryResults = mysqli_num_rows($result);
-
-         if ($queryResults > 0) {
-             while ($row = mysqli_fetch_assoc($result)) {
-                 $timestamp = $row['createdOn'];
-                 $date      = date("d-m-Y", strtotime($timestamp));
-                 if ($row['link'] != null) {
-                     echo "<div class='link'>
-           <iframe src='" . $row['link'] . "' width='100%' height='250'></iframe></div>
-           <a href='" . $row['link'] . "' class='myButton' target='_blank'>Visit Website<a>
-           </div> <br> <br>";
-                 } else {
-                     echo "";
-                 }
-                 if ($row['biog'] != 'pdf/') {
-                     echo '
-          <div class="pdf">
-            <button onclick="myFunction()">ΕΠΙΣΥΝΑΠΤΟΜΕΝΟ (ΑΝΟΙΓΜΑ/ΚΛΕΙΣΜΙΟ)</button>
-            <div id="pdf" style="display: none;">
-            <p><iframe src=' . $row['biog'] . ' width="1000px" height="1000px"></iframe></p>
-            </div>
-          </div>';
-                 } else {
-                     echo "";
-                 }
-                 echo "<div class='box'>
-           <h3>" . $row['reviewtype'] . "</h3>
-           <h3>" . $row['title'] . "</h3>
-
-           <p>Ημερομηνία ανάρτησης: " . $date . "</p><br>
-           </div>";
-             if ($fetch_info['id'] == $row['userIDentry'] && time() - strtotime($row['createdOn']) < 1800) {?>
-           <br> <br>
-
-           <div class='delete deleteentry'>
-              <p>Για 30 λεπτά μπορείτε να σβήσετε αυτή την ανάρτηση</p>
-              <a href='deleteentry.php?eid=<?php echo $eid ?>' class='confirmation' onclick="return confirm('Are you sure?');">Delete Entry</a>
-            </div>
-   </div>
-   <?php }
-           }
-   }?>
-  </div>
-  </div> <br> <br>
+     <?php include 'php/entry.php'; ?>
+  <br> <br>
 
 
   <!-- Voting Start -->
-<?php
-    $articlesQuery = $con->query("SELECT
-entry.eid,
-COUNT(entries_likes.id) AS likes,
-GROUP_CONCAT(usertable.lastName SEPARATOR '|') AS liked_by
-
-FROM entry
-
-LEFT JOIN entries_likes
-ON entry.eid = entries_likes.article
-
-LEFT JOIN usertable
-ON entries_likes.user = usertable.id
-
-AND entry.eid=$eid
-
-");
-
-    while ($row = $articlesQuery->fetch_object()) {
-        $row->liked_by = $row->liked_by ? explode('|', $row->liked_by) : [];
-        $articles[]    = $row;
-    }
-    $articlesQuery2 = $con->query("SELECT
-entry.eid,
-COUNT(entries_dislikes.id) AS dislikes,
-GROUP_CONCAT(usertable.lastName SEPARATOR '|') AS disliked_by
-
-FROM entry
-
-LEFT JOIN entries_dislikes
-ON entry.eid = entries_dislikes.article
-
-LEFT JOIN usertable
-ON entries_dislikes.user = usertable.id
-
-AND entry.eid=$eid
-
-");
-
-    while ($row2 = $articlesQuery2->fetch_object()) {
-        $row2->disliked_by = $row2->disliked_by ? explode('|', $row2->disliked_by) : [];
-        $articles2[]       = $row2;
-    }
-
-?>
-  <div class="voteButtons"<?php if ($reviewtype != "ΨΗΦΟΦΟΡΙΑ") {
-        echo "style= display:none;}";
-}
-?>>
-  <?php foreach ($articles as $article): ?>
-    <div class="yesVote">
-      <a href="like.php?type=article&id=<?php echo $eid; ?>&userid=<?php echo $fetch_info['id']; ?>&reviewtype=<?php echo $reviewtype; ?>&title=<?php echo $title; ?>"
-
-      onclick="return confirm('Πρόκειται να ψηφίσετε ΝΑΙ.  Αν πατήσετε ΟΚ η ψήφος θα καταχωρηθεί και δεν θα μπορείτε να αλλάξετε την ψήφο σας.');">NAI</a> <br>
-      <!-- <p><?php echo $article->likes; ?> ψήφοι</p> -->
-      <br>
-      <button onclick="myFunction2()">ΕΜΦΑΝΙΣΗ ΨΗΦΩΝ</button>
-      <ol id="votedYes">
-          <?php foreach ($article->liked_by as $user): ?>
-              <?php echo "<li>" . $user . "</li>"; ?>
-              <?php endforeach; ?>
-            </ol>
-    </div>
-    <?php endforeach; ?>
-    <div class="space">
-      <section class="innerSpace"></section>
-    </div>
-    <?php foreach ($articles2 as $article): ?>
-    <div class="noVote">
-      <a href="dislike.php?type=article&id=<?php echo $eid; ?>&userid=<?php echo $fetch_info['id']; ?>&reviewtype=<?php echo $reviewtype; ?>&title=<?php echo $title; ?>" onclick="return confirm('Πρόκειται να ψηφίσετε ΟΧΙ.  Αν πατήσετε ΟΚ η ψήφος θα καταχωρηθεί και δεν θα μπορείτε να αλλάξετε την ψήφο σας.');">OXI</a> <br>
-      <!-- <p><?php echo $article->dislikes; ?> ψήφοι</p> -->
-      <br>
-      <button onclick="myFunction3()">ΕΜΦΑΝΙΣΗ ΨΗΦΩΝ</button>
-      <ol id="votedNo">
-          <?php foreach ($article->disliked_by as $user): ?>
-              <?php echo "<li>" . $user . "</li>"; ?>
-          <?php endforeach; ?>
-      </ol>
-    </div>
-  </div>
-  <?php endforeach; ?>
+<?php include 'php/voting.php'; ?>
   <!-- Voting End -->
 
 <a name="comment"></a>
@@ -350,10 +131,7 @@ AND entry.eid=$eid
         <button type='submit' name='editcomment' value='editcomment' style='padding:5px;'><span>&nbsp;&nbsp;Insert&nbsp;&nbsp;</span></button></div>
     </form>";
        } else {
-           echo "
-
-
-   <div class='commentsin'>
+           echo "<div class='commentsin'>
     <form method='post'>
           <textarea placeholder='Write a comment.' type='text' name='comment' id='comment'></textarea>
           <button type='button' id='startDictation'>🎤 Dictate</button>
@@ -430,88 +208,10 @@ function myFunction3() {
   }
 }
         </script>
-        <script>
-document.getElementById("startDictation").addEventListener("click", function () {
-    if (!('webkitSpeechRecognition' in window)) {
-        alert("Your browser does not support speech recognition.");
-        return;
-    }
 
-    const recognition = new webkitSpeechRecognition();
-    recognition.lang = "el-GR"; // or "en-US", "fr-FR", etc.
-    recognition.continuous = false; // stop after pause
-    recognition.interimResults = false; // only final result
-
-    recognition.start();
-
-    recognition.onresult = function (event) {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById("comment").value += (document.getElementById("comment").value ? " " : "") + transcript;
-    };
-
-    recognition.onerror = function (event) {
-        console.error("Speech recognition error", event.error);
-    };
-});
-
-let mediaRecorder;
-let audioChunks = [];
-
-const recordBtn = document.getElementById("recordBtn");
-const audioPreview = document.getElementById("audioPreview");
-const audioFileInput = document.getElementById("audioFile");
-const uploadBtn = document.getElementById("uploadBtn");
-
-// Start recording on press
-recordBtn.addEventListener("mousedown", startRecording);
-recordBtn.addEventListener("touchstart", startRecording);
-
-// Stop recording on release
-recordBtn.addEventListener("mouseup", stopRecording);
-recordBtn.addEventListener("mouseleave", stopRecording);
-recordBtn.addEventListener("touchend", stopRecording);
-
-async function startRecording(e) {
-    e.preventDefault();
-    if (mediaRecorder && mediaRecorder.state === "recording") return;
-
-    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
-
-    mediaRecorder.ondataavailable = event => audioChunks.push(event.data);
-    mediaRecorder.start();
-    recordBtn.innerText = "⏺ Recording... Release to Stop";
-}
-
-function stopRecording(e) {
-    e.preventDefault();
-    if (!mediaRecorder || mediaRecorder.state !== "recording") return;
-
-    mediaRecorder.stop();
-    recordBtn.innerText = "🎙 Hold to Record";
-
-    mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        // Show preview
-        audioPreview.src = audioUrl;
-        audioPreview.style.display = "block";
-
-        // Show upload button now that a file exists
-        uploadBtn.style.display = "inline-block";
-
-        // Prepare file for upload
-        const file = new File([audioBlob], "comment.webm", { type: "audio/webm" });
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        audioFileInput.files = dataTransfer.files;
-    };
-}
-
-</script>
+<script src="js/dictation.js"></script>
+<script src="js/record.js"></script>
 
 
-      </body>
-    </html>
+</body>
+</html>
