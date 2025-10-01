@@ -512,7 +512,7 @@ h4 {
   height: 40px;
   width: 40px;
   margin: 10px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 50%;
 }
 
