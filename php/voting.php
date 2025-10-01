@@ -9,7 +9,7 @@
     FROM entry
     LEFT JOIN entries_likes ON entry.eid = entries_likes.article
     LEFT JOIN usertable ON entries_likes.user = usertable.id
-    AND entry.eid = $eid
+    WHERE entry.eid = $eid
 ");
 
     while ($row = $articlesQuery->fetch_object()) {
@@ -27,53 +27,67 @@
     FROM entry
     LEFT JOIN entries_dislikes ON entry.eid = entries_dislikes.article
     LEFT JOIN usertable ON entries_dislikes.user = usertable.id
-    AND entry.eid = $eid
+    WHERE entry.eid = $eid
 ");
 
     while ($row2 = $articlesQuery2->fetch_object()) {
         $row2->disliked_by = $row2->disliked_by ? explode('|', $row2->disliked_by) : [];
         $articles2[]       = $row2;
     }
+
+    // Check if current user has already voted
+    $userid = $fetch_info['id'];
+
+    $checkYes = $con->query("SELECT 1 FROM entries_likes WHERE user = $userid AND article = $eid LIMIT 1");
+    $checkNo  = $con->query("SELECT 1 FROM entries_dislikes WHERE user = $userid AND article = $eid LIMIT 1");
+
+    $alreadyVoted = ($checkYes->num_rows > 0 || $checkNo->num_rows > 0);
 ?>
 
-<div class="voteButtons"                         <?php if ($reviewtype != "ΨΗΦΟΦΟΡΙΑ") {
-                                 echo 'style="display:none;"';
-                         }
-                         ?>>
-
-    <!-- Yes Votes -->
-    <?php foreach ($articles as $article): ?>
+<div class="voteButtons"                                                                                                                                                                                                 <?php if ($reviewtype != "ΨΗΦΟΦΟΡΙΑ") {echo 'style="display:none;"';}?>>
+    <?php if (! $alreadyVoted): ?>
+        <!-- Voting links -->
         <div class="yesVote">
-            <a href="like.php?type=article&id=<?php echo $eid?>&userid=<?php echo $fetch_info['id']?>&reviewtype=<?php echo urlencode($reviewtype)?>&title=<?php echo urlencode($title)?>"
+            <a href="like.php?type=article&id=<?php echo $eid ?>&userid=<?php echo $fetch_info['id'] ?>&reviewtype=<?php echo urlencode($reviewtype) ?>&title=<?php echo urlencode($title) ?>"
                onclick="return confirm('Πρόκειται να ψηφίσετε ΝΑΙ. Αν πατήσετε ΟΚ η ψήφος θα καταχωρηθεί και δεν θα μπορείτε να αλλάξετε την ψήφο σας.');">
                 ΝΑΙ
             </a>
-            <br><br>
+        </div>
+
+        <div class="noVote">
+            <a href="dislike.php?type=article&id=<?php echo $eid ?>&userid=<?php echo $fetch_info['id'] ?>&reviewtype=<?php echo urlencode($reviewtype) ?>&title=<?php echo urlencode($title) ?>"
+               onclick="return confirm('Πρόκειται να ψηφίσετε ΟΧΙ. Αν πατήσετε ΟΚ η ψήφος θα καταχωρηθεί και δεν θα μπορείτε να αλλάξετε την ψήφο σας.');">
+                ΟΧΙ
+            </a>
+        </div>
+    <?php else: ?>
+        <p>✅ Έχετε ήδη ψηφίσει. Δεν μπορείτε να αλλάξετε την ψήφο σας.</p>
+    <?php endif; ?>
+    </div>
+<!--
+    <div class="space">
+        <section class="innerSpace"></section>
+    </div> -->
+<div class="voteNames">
+    <!-- Yes Votes -->
+    <?php foreach ($articles as $article): ?>
+        <div class="yesVote">
             <button onclick="myFunction2()">ΕΜΦΑΝΙΣΗ ΨΗΦΩΝ</button>
             <ol id="votedYes">
                 <?php foreach ($article->liked_by as $user): ?>
-                    <li><?php echo htmlspecialchars($user)?></li>
+                    <li><?php echo htmlspecialchars($user) ?></li>
                 <?php endforeach; ?>
             </ol>
         </div>
     <?php endforeach; ?>
 
-    <div class="space">
-        <section class="innerSpace"></section>
-    </div>
-
     <!-- No Votes -->
     <?php foreach ($articles2 as $article): ?>
         <div class="noVote">
-            <a href="dislike.php?type=article&id=<?php echo $eid?>&userid=<?php echo $fetch_info['id']?>&reviewtype=<?php echo urlencode($reviewtype)?>&title=<?php echo urlencode($title)?>"
-               onclick="return confirm('Πρόκειται να ψηφίσετε ΟΧΙ. Αν πατήσετε ΟΚ η ψήφος θα καταχωρηθεί και δεν θα μπορείτε να αλλάξετε την ψήφο σας.');">
-                ΟΧΙ
-            </a>
-            <br><br>
             <button onclick="myFunction3()">ΕΜΦΑΝΙΣΗ ΨΗΦΩΝ</button>
             <ol id="votedNo">
                 <?php foreach ($article->disliked_by as $user): ?>
-                    <li><?php echo htmlspecialchars($user)?></li>
+                    <li><?php echo htmlspecialchars($user) ?></li>
                 <?php endforeach; ?>
             </ol>
         </div>

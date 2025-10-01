@@ -440,6 +440,37 @@ section .formbox {
   background-color: rgb(32, 253, 242);
 }
 
+.voteButtons p {
+  background-color: rgb(22, 175, 167);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.voteNames {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  /* center horizontally */
+  align-items: center;
+  /* center vertically */
+  margin: 20px auto;
+  background-color: rgb(22, 175, 167);
+  text-align: center;
+}
+
+.voteNames button {
+  background-color: rgb(22, 175, 167);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 .commentsin {
   margin-left: 12%;
   width: 76%;
