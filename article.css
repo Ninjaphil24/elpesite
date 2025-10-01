@@ -245,7 +245,27 @@ section .formbox {
 
 .deleteentry {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+}
+
+.deleteentry a {
+  text-decoration: none;
+  color: white;
+  max-width: 200px;
+  font-size: 25px;
+  padding: 20px 50px;
+  background-color: red;
+  text-align: center;
+}
+
+.deleteentry p {
+  text-align: center;
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .pdf {
