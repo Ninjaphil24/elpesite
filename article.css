@@ -603,6 +603,68 @@ h4 {
   top: 1px;
 }
 
+.signaturesBox {
+  max-width: 500px;
+  /* nice readable width */
+  margin: 40px auto;
+  /* centers horizontally */
+  padding: 20px;
+  background-color: #f9f9f9;
+  /* light background */
+  border: 2px solid #16afa7;
+  /* match your teal theme */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.signaturesBox button {
+  background-color: #007dc1;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 15px 0;
+  transition: all 0.3s ease;
+}
+
+.signaturesBox button:hover {
+  background-color: #005f90;
+}
+
+.signaturesBox p {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.signaturesBox ol {
+  margin: 20px 0;
+  padding-left: 0;
+  list-style-position: inside;
+  text-align: left;
+  /* align names left inside the box */
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  max-height: 200px;
+  /* scroll if too many names */
+  overflow-y: auto;
+}
+
+.signaturesBox ol li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.signaturesBox ol li:last-child {
+  border-bottom: none;
+}
+
+
 @media (max-width: 1200px) {
   header {
     margin: 20px;

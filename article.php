@@ -66,7 +66,9 @@
      <?php include 'php/entry.php'; ?>
   <br> <br>
 
-
+<!-- Signatures -->
+<?php include 'php/signatures.php'; ?>
+<!-- Signatures End -->
   <!-- Voting Start -->
 <?php include 'php/voting.php'; ?>
   <!-- Voting End -->

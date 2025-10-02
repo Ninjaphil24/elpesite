@@ -44,7 +44,8 @@
     $alreadyVoted = ($checkYes->num_rows > 0 || $checkNo->num_rows > 0);
 ?>
 
-<div class="voteButtons"                                                                                                                                                                                                 <?php if ($reviewtype != "ΨΗΦΟΦΟΡΙΑ") {echo 'style="display:none;"';}?>>
+<?php if (($reviewtype == 'ΨΗΦΟΦΟΡΙΑ (16.3)' && $signatures->total_signatures >= 15) || $reviewtype == 'ΨΗΦΟΦΟΡΙΑ ΠΡΟΕΔΡΟΥ') {?>
+<div class="voteButtons">
     <?php if (! $alreadyVoted): ?>
         <!-- Voting links -->
         <div class="yesVote">
@@ -94,3 +95,4 @@
     <?php endforeach; ?>
 
 </div>
+<?php }?>
