@@ -169,16 +169,37 @@ nav ul li a:hover,
   cursor: pointer;
 }
 
-
-
-.search-user form {
-  width: 100%;
-  padding: 0 20%;
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  /* margin: 20px auto; */
+.search-user {
+  text-align: center;
+  margin: 20px;
 }
+
+.category-select {
+  width: auto;
+  /* don’t stretch full width */
+  min-width: 250px;
+  /* set a nice base width */
+  background: #efefef;
+  /* your light gray */
+  color: #262626;
+  /* dark text */
+  border: 1px solid #555;
+  /* darker border */
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 16px;
+  /* larger text */
+  display: inline-block;
+  /* shrink to content */
+}
+
+.category-select:focus {
+  outline: none;
+  border-color: #069370;
+  /* highlight color */
+  box-shadow: 0 0 5px rgba(6, 147, 112, 0.5);
+}
+
 
 .search-user input {
   width: 70%;

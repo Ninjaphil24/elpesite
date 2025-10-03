@@ -1,77 +1,6 @@
 <?php
-    session_start();
-    require "connection.php";
-    $email  = "";
-    $name   = "";
-    $errors = [];
-    //require_once "controllerUserData.php";
-?>
-<?php
-    if (! empty($_COOKIE["email"])) {
-        $email    = $_COOKIE['email'];
-        $password = $_COOKIE['password'];
-
-    } else {
-        $email    = $_SESSION['email'];
-        $password = $_SESSION['password'];
-    }
-    if ($email != false && $password != false) {
-        $sql     = "SELECT * FROM usertable WHERE email = '$email'";
-        $run_Sql = mysqli_query($con, $sql);
-        if ($run_Sql) {
-            $fetch_info = mysqli_fetch_assoc($run_Sql);
-            $status     = $fetch_info['status'];
-            $code       = $fetch_info['code'];
-            if ($status == "verified") {
-                if ($code != 0) {
-                    header('Location: reset-code.php');
-                }
-            } else {
-                header('Location: user-otp.php');
-            }
-        }
-    } else {
-        header('Location: index.php');
-    }
-
-    if (isset($_POST['insert'])) {
-        $userIDentry = $fetch_info['id'];
-        $reviewtype  = $con->real_escape_string($_POST['reviewtype']);
-        $title       = $con->real_escape_string($_POST['title']);
-        $link        = $con->real_escape_string($_POST['link']);
-        // $video = $con->real_escape_string($_POST['video']);
-        $biog    = $_FILES['biog']['name'];
-        $targetb = "pdf/" . basename($biog);
-
-        $errors = [];
-
-        if (empty($title)) {
-            $errors['t'] = "Title Required";
-        }
-
-        if (count($errors) == 0) {
-            $query = "INSERT INTO entry(userIDentry,reviewtype,title,link,biog,createdOn)
-        VALUES ('$userIDentry','$reviewtype','$title','$link','pdf/$biog',NOW())";
-            move_uploaded_file($_FILES['biog']['tmp_name'], $targetb);
-            $result = mysqli_query($con, $query);
-
-            if ($result) {
-                header("Location: home.php");
-                die();
-            } else {
-
-                $query = "SELECT * FROM entry WHERE reviewtype = '$reviewtype' AND title = '$title'";
-
-                $result = mysqli_query($con, $query);
-
-                $row = mysqli_fetch_assoc($result);
-
-                header("Location: article.php?eid=" . $row['eid'] . "&reviewtype=" . $row['reviewtype'] . "&title=" . $row['title'] . "");
-                die();
-            }
-        }
-
-    }
+    require "php/homevalidation.php";
+    require "php/homenewentry.php";
 
 ?>
 <!DOCTYPE html>
@@ -99,7 +28,7 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                   <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <?php echo $fetch_info['firstName'] ?></h3>
   </a>
   </div>
 </section>
@@ -182,15 +111,16 @@
       </div>
 
   <div class="search-user">
-    <form action="search.php" method="POST">
-      <select class="form-control" name="search">
+
+      <select class="category-select" name="search">
+          <option value="ALL">ΌΛΕΣ ΟΙ ΚΑΤΗΓΟΡΙΕΣ</option>
           <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
           <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>
           <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
       </select>
         <!-- <input type="text" name="search" placeholder="Search"> -->
-        <button type="submit" name="submit-search">&#8594;  ΥΠΟΒΟΛΗ ΚΑΤΗΓΟΡΙΑΣ  &#8593;</button>
-    </form>
+        <!-- <button type="submit" name="submit-search">&#8594;  ΥΠΟΒΟΛΗ ΚΑΤΗΓΟΡΙΑΣ  &#8593;</button> -->
+
   </div>
 <!-- Create a "by category" button that will connect with the search script. -->
   <div class="container">
@@ -205,148 +135,9 @@
   <div id='img_div'>
 <h3>ΑΝΑΡΤΗΣΕΙΣ ΜΕΛΩΝ</h3>
 <ul>
-
-  <?php
-      if (isset($_GET['page_no']) && $_GET['page_no'] != "") {
-          $page_no = $_GET['page_no'];
-      } else {
-          $page_no = 1;
-      }
-
-      $total_records_per_page = 10;
-      $offset                 = ($page_no - 1) * $total_records_per_page;
-      $previous_page          = $page_no - 1;
-      $next_page              = $page_no + 1;
-      $adjacents              = "2";
-
-      $result_count      = mysqli_query($con, "SELECT COUNT(*) As total_records FROM `entry`");
-      $total_records     = mysqli_fetch_array($result_count);
-      $total_records     = $total_records['total_records'];
-      $total_no_of_pages = ceil($total_records / $total_records_per_page);
-      $second_last       = $total_no_of_pages - 1; // total page minus 1
-
-      $sql         = "SELECT * FROM entry ORDER BY eid DESC LIMIT $offset, $total_records_per_page";
-      $result      = mysqli_query($con, $sql);
-      $queryResult = mysqli_num_rows($result);
-
-      if ($queryResult > 0) {
-          while ($row = mysqli_fetch_assoc($result)) {
-              // https://www.delftstack.com/howto/php/how-to-convert-a-date-to-the-timestamp-in-php/
-              $timestamp = $row['createdOn'];
-              $date      = date("d-m-Y", strtotime($timestamp));
-
-              // $dateunix = new DateTime($timestamp);
-              // $timeunix = $dateunix->getTimestamp();
-              // $fiveSeconds = 5;
-              // $t3600secs = 3600;
-              // $sum = $timeunix + $fiveSeconds;
-              // $unixnow = time()+3600;
-              // https://www.javatpoint.com/php-adding-two-numbers
-              // if($unixnow<$sum)echo "<span>";
-
-              echo "<a href='article.php?eid=" . $row['eid'] . "&reviewtype=" . $row['reviewtype'] . "&title=" . $row['title'] . "'>
-
-        <li><p>" . $row['reviewtype'] . "<br>
-        <h5>" . $row['title'] . "</h5><br>
-        ΗΜΕΡΟΜΗΝΙΑ ΑΝΑΡΤΗΣΗΣ:&nbsp;" . $date . "</p><hr>";
-
-              // if($unixnow<$sum)echo "</span>";
-              // echo "<hr>";
-              // echo "Timeunix: ".$timeunix;
-              // echo "<br>";
-              // echo "Sum: ".$sum;
-              // echo "<br>";
-              // echo "Current time: ".$unixnow;
-
-              if ($row['link'] != null) {
-                  echo "<iframe src='" . $row['link'] . "' style='width: 100%; height: 300px;'></iframe></li></a>
-        <br>";
-              } else {
-                  echo "</li></a>
-        <br>";
-              }
-
-          }
-      }
-      mysqli_close($con);
-  ?>
-</ul>
-  <br>
-  <div class="myButton">
-  <a href="#top">Back to top</a>
-  </div>
-  <br>
-</div>
-</div>
-<div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC; width: 200px; background:white;'>
-<strong>Page                                                                                                                                                                                                             <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
-</div>
-
-<ul class="pagination">
-	<?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } ?>
-
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no <= 1) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no > 1) {echo "href='?page_no=$previous_page'";}?>>Previous</a>
-	</li>
-
-    <?php
-        if ($total_no_of_pages <= 10) {
-            for ($counter = 1; $counter <= $total_no_of_pages; $counter++) {
-                if ($counter == $page_no) {
-                    echo "<li class='active'><a>$counter</a></li>";
-                } else {
-                    echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                }
-            }
-        } elseif ($total_no_of_pages > 10) {
-
-            if ($page_no <= 4) {
-                for ($counter = 1; $counter < 8; $counter++) {
-                    if ($counter == $page_no) {
-                        echo "<li class='active'><a>$counter</a></li>";
-                    } else {
-                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                    }
-                }
-                echo "<li><a>...</a></li>";
-                echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-                echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-            } elseif ($page_no > 4 && $page_no < $total_no_of_pages - 4) {
-                echo "<li><a href='?page_no=1'>1</a></li>";
-                echo "<li><a href='?page_no=2'>2</a></li>";
-                echo "<li><a>...</a></li>";
-                for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {
-                    if ($counter == $page_no) {
-                        echo "<li class='active'><a>$counter</a></li>";
-                    } else {
-                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                    }
-                }
-                echo "<li><a>...</a></li>";
-                echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
-                echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
-            } else {
-                echo "<li><a href='?page_no=1'>1</a></li>";
-                echo "<li><a href='?page_no=2'>2</a></li>";
-                echo "<li><a>...</a></li>";
-
-                for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
-                    if ($counter == $page_no) {
-                        echo "<li class='active'><a>$counter</a></li>";
-                    } else {
-                        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
-                    }
-                }
-            }
-        }
-    ?>
-
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no >= $total_no_of_pages) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no < $total_no_of_pages) {echo "href='?page_no=$next_page'";}?>>Next</a>
-	</li>
-    <?php if ($page_no < $total_no_of_pages) {
-            echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
-    }?>
+<?php
+    include 'php/homepagination.php';
+?>
 </ul>
 <div class="distance" style="height: 100px;"></div>
 </body>
@@ -363,11 +154,28 @@
 
 <!-- Your custom script -->
 <script type="text/javascript">
-$(document).ready(function(){
-  $('.menu-toggle').click(function(){
-    $('.menu-toggle').toggleClass('active');
-    $('nav').toggleClass('active');
+$(document).ready(function() {
+  // nav toggle
+  $(".menu-toggle").click(function(){
+    $(this).toggleClass("active");
+    $("nav").toggleClass("active");
+  });
+
+  // ajax search
+  $(".search-user select").on("change", function() {
+    let search = $(this).val();
+    $.ajax({
+      url: "search.php",
+      type: "POST",
+      data: { search: search },
+      success: function(data) {
+        $("#img_div ul").html(data);
+        $(".search-user select").val(search);
+      }
+    });
   });
 });
+
+
 </script>
 </html>
