@@ -9,6 +9,7 @@ $result = $con->query("SELECT title FROM entry WHERE eid = {$eid}");
 if (! $result) {
     die("SQL Error (entry): " . $con->error);
 }
+$entry    = $result->fetch_assoc();
 $comments = $con->query("
     SELECT usertable.firstName, usertable.lastName, comments.comment, comments.commentCreatedOn
     FROM comments
