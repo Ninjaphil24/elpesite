@@ -10,33 +10,41 @@
         while ($row = mysqli_fetch_assoc($result)):
             $timestamp = $row['createdOn'];
             $date      = date("d-m-Y", strtotime($timestamp));
-        ?>
-														        <!-- Link preview -->
-														        <?php if (! empty($row['link'])): ?>
-														            <div class="link">
-														                <iframe src="<?php echo htmlspecialchars($row['link']) ?>" width="100%" height="250"></iframe>
-														            </div>
-														            <a href="<?php echo htmlspecialchars($row['link']) ?>" class="myButton" target="_blank">Visit Website</a>
-														            <br><br>
-														        <?php endif; ?>
+        if (! empty($row['link'])): ?>
+																        <div class="link-preview">
+				    <a href="<?php echo htmlspecialchars($row['link']); ?>" target="_blank">
+				        <img
+				            src="https://www.google.com/s2/favicons?sz=64&domain=<?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?>"
+				            alt="favicon"
+				        >
+				        <div class="link-preview-content">
+				            <strong><?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?></strong><br>
+				            <em>Click to open external site</em>
+				        </div>
+				    </a>
+				</div>
 
-							        <!-- PDF preview -->
-							        <?php if ($row['biog'] !== 'pdf/'): ?>
-							            <div class="pdf">
-							                <button onclick="myFunction()">ΕΠΙΣΥΝΑΠΤΟΜΕΝΟ (ΑΝΟΙΓΜΑ/ΚΛΕΙΣΜΙΟ)</button>
-							                <div id="pdf" style="display: none;">
-							                    <p>
-							                        <iframe src="<?php echo htmlspecialchars($row['biog']) ?>" width="1000px" height="1000px"></iframe>
-							                    </p>
-							                </div>
-							            </div>
-							        <?php endif; ?>
+																    <br><br>
+																        <?php endif; ?>
+
+								        <!-- PDF preview -->
+								        <?php if ($row['biog'] !== 'pdf/'): ?>
+								            <div class="pdf">
+								                <button onclick="myFunction()">ΕΠΙΣΥΝΑΠΤΟΜΕΝΟ (ΑΝΟΙΓΜΑ/ΚΛΕΙΣΜΙΟ)</button>
+								                <div id="pdf" style="display: none;">
+								                    <p>
+								                        <iframe src="<?php echo htmlspecialchars($row['biog']) ?>" width="1000px" height="1000px"></iframe>
+								                    </p>
+								                </div>
+								            </div>
+								        <?php endif; ?>
 
         <!-- Entry details -->
         <div class="box">
             <h3><?php echo htmlspecialchars($row['reviewtype']) ?></h3>
             <h3><?php echo htmlspecialchars($row['title']) ?></h3>
-            <p>Ημερομηνία ανάρτησης:                                                                                                                                                                                                                                                                                                                                           <?php echo $date ?></p><br>
+            <p>Ημερομηνία ανάρτησης:
+                <?php echo $date ?></p><br>
         </div>
 
         <!-- Delete option (only for owner within 30 minutes) -->
