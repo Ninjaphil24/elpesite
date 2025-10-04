@@ -40,14 +40,14 @@
 <div class="secretarialBox">
     <h4>ΓΡΑΜΜΑΤΕΙΑΚΗ ΚΑΤΑΧΩΡΗΣΗ</h4>
 
-    <?php if ($isAdmin && $total < 1): ?>
+    <?php if ($isAdmin && $total < 7): ?>
     <form method="post">
         <button type="submit" name="secretary_sign"
             onclick="return confirm('Επιβεβαιώστε την υπογραφή σας.');">
             Υπογραφή Γραμματείας
         </button>
     </form>
-<?php elseif ($total >= 1): ?>
+<?php elseif ($total == 7): ?>
     <p>✅ Έχουν συλλεχθεί<?php echo $total; ?>/7 υπογραφές.</p>
     <form method="post" action="/createpdf.php" target="_blank">
         <input type="hidden" name="eid" value="<?php echo $eid; ?>">

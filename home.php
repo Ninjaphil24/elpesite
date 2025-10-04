@@ -28,7 +28,7 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $fetch_info['firstName'] ?></h3>
   </a>
   </div>
 </section>
@@ -81,6 +81,7 @@
                     }?>
                     <option value="ΨΗΦΟΦΟΡΙΑ (16.3)">ΨΗΦΟΦΟΡΙΑ (16.3)</option>
                     <option value="ΓΡΑΜΜΑΤΕΙΑΚΗ ΚΑΤΑΧΩΡΗΣΗ">ΓΡΑΜΜΑΤΕΙΑΚΗ ΚΑΤΑΧΩΡΗΣΗ</option>
+                    <option value="ΠΡΟΣΚΛΗΣΕΙΣ">ΠΡΟΣΚΛΗΣΕΙΣ</option>
                     <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
                   </select> <br>
 
@@ -118,6 +119,7 @@
           <option value="ΓΕΝΙΚΗ_ΣΥΖΗΤΗΣΗ">ΓΕΝΙΚΗ ΣΥΖΗΤΗΣΗ</option>
           <option value="ΨΗΦΟΦΟΡΙΑ">ΨΗΦΟΦΟΡΙΑ</option>
           <option value="ΓΡΑΜΜΑΤΕΙΑΚΗ ΚΑΤΑΧΩΡΗΣΗ">ΓΡΑΜΜΑΤΕΙΑΚΗ ΚΑΤΑΧΩΡΗΣΗ</option>
+          <option value="ΠΡΟΣΚΛΗΣΕΙΣ">ΠΡΟΣΚΛΗΣΕΙΣ</option>
           <option value="ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ">ΚΑΤΑΓΓΕΛΙΑ/ΠΑΡΑΠΟΝΑ</option>
       </select>
         <!-- <input type="text" name="search" placeholder="Search"> -->

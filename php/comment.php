@@ -29,7 +29,9 @@
                         }
                                 // Edit Button
                             if ($fetch_info['id'] == $row['userID'] && time() - strtotime($row['commentCreatedOn']) < 1800) {?>
-              <p>Για 30 λεπτά μπορείτε να σβήσετε ή να επεξεργαστείτε αυτό το σχόλιο</p>
+              <p>Για
+                <?php echo round(30 - (time() - strtotime($row['createdOn'])) / 60); ?>
+ λεπτά μπορείτε να σβήσετε ή να επεξεργαστείτε αυτό το σχόλιο</p>
             <div class="buttons">
               <form class='delete' method='POST' action='article.php?eid=<?php echo $eid; ?>&reviewtype=<?php echo $reviewtype; ?>&title=<?php echo $title; ?>#comment'>
               <input type='hidden' name='cid' value='<?php echo $row['cid']; ?>'>

@@ -80,6 +80,7 @@
     <br><br><br>
   </div>
   <?php include 'php/secretarial.php'; ?>
+  <?php include 'php/invitations.php'; ?>
 <div class="distance" style="height: 100px;"></div>
 
 
