@@ -45,16 +45,19 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                   <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ
+        <?php echo $fetch_info['firstName'] ?></h3>
   </a>
   </div>
 </section>
     <nav>
         <ul>
-            <li><a href="home.php">ΧΩΡΟΣ_ΜΕΛΩΝ</a></li>
-            <?php if ($fetch_info['usertype'] == 'admin') {
-                    echo '<li><a href="boardmembers.php">ΧΩΡΟΣ_ΔΣ</a></li>';
-            }?>
+            <li><a href="home.php">ΑΡΧΙΚΗ</a></li>
+            <?php
+                // if ($fetch_info['usertype'] == 'admin') {
+                //         echo '<li><a href="boardmembers.php">ΧΩΡΟΣ_ΔΣ</a></li>';
+                // }
+            ?>
             <li><a href="new-password.php">ΑΛΛΑΓΗ_ΚΩΔΙΚΟΥ</a></li>
         </ul>
     </nav>
