@@ -28,7 +28,7 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <?php echo $fetch_info['firstName'] ?></h3>
   </a>
   </div>
 </section>
@@ -128,13 +128,13 @@
   </div>
 <!-- Create a "by category" button that will connect with the search script. -->
   <div class="container">
-  <div class="myButton">
+  <!-- <div class="myButton">
   <?php if ($fetch_info['usertype'] == 'admin') {
           echo '
   <a href="home.php" class="active" >ΧΩΡΟΣ ΜΕΛΩΝ</a>
   <a href="boardmembers.php" >ΧΩΡΟΣ ΔΣ</a>';
   }?>
-  </div>
+  </div> -->
 
   <div id='img_div'>
 <h3>ΑΝΑΡΤΗΣΕΙΣ ΜΕΛΩΝ</h3>

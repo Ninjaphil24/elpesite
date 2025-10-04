@@ -83,11 +83,15 @@ if (isset($_POST['check'])) {
 }
 
 //if cookies exist
-if (! empty($_COOKIE["email"]) && $_COOKIE["usertype"] == "member") {
+// if (! empty($_COOKIE["email"]) && $_COOKIE["usertype"] == "member") {
+//     header("Location: home.php");
+//     exit();
+// } else if (! empty($_COOKIE["email"]) && $_COOKIE["usertype"] == "admin") {
+//     header("Location: boardmembers.php");
+//     exit();
+// }
+if (! empty($_COOKIE["email"])) {
     header("Location: home.php");
-    exit();
-} else if (! empty($_COOKIE["email"]) && $_COOKIE["usertype"] == "admin") {
-    header("Location: boardmembers.php");
     exit();
 }
 //if user click login button
@@ -102,16 +106,21 @@ if (isset($_POST['login'])) {
         if (password_verify($password, $fetch_pass)) {
             $_SESSION['email'] = $email;
             $status            = $fetch['status'];
-            if ($status == 'verified' && $fetch['usertype'] == 'member') {
+            if ($status == 'verified') {
                 $_SESSION['email']    = $email;
                 $_SESSION['password'] = $password;
                 header('location: home.php');
-            } else if ($status == 'verified' && $fetch['usertype'] == 'admin') {
-                $_SESSION['email']    = $email;
-                $_SESSION['password'] = $password;
-                header('location: boardmembers.php');
+
+                // if ($status == 'verified' && $fetch['usertype'] == 'member') {
+                //     $_SESSION['email']    = $email;
+                //     $_SESSION['password'] = $password;
+                //     header('location: home.php');
+                // } else if ($status == 'verified' && $fetch['usertype'] == 'admin') {
+                //     $_SESSION['email']    = $email;
+                //     $_SESSION['password'] = $password;
+                //     header('location: boardmembers.php');
             } else {
-                $info             = "It's look like you haven't still verify your email - $email";
+                $info             = "Παρακαλώ επιβεβαιώστε το email σας - $email";
                 $_SESSION['info'] = $info;
                 header('location: user-otp.php');
             }
