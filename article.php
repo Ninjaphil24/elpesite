@@ -76,8 +76,10 @@
 <a name="comment"></a>
 <div class="commentsout">
     <?php include 'php/comment.php'; ?>
-<br><br><br>
-</div>
+
+    <br><br><br>
+  </div>
+  <?php include 'php/secretarial.php'; ?>
 <div class="distance" style="height: 100px;"></div>
 
 
