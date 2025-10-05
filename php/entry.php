@@ -11,33 +11,30 @@
             $timestamp = $row['createdOn'];
             $date      = date("d-m-Y", strtotime($timestamp));
         if (! empty($row['link'])): ?>
-																        <div class="link-preview">
-				    <a href="<?php echo htmlspecialchars($row['link']); ?>" target="_blank">
-				        <img
-				            src="https://www.google.com/s2/favicons?sz=64&domain=<?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?>"
-				            alt="favicon"
-				        >
-				        <div class="link-preview-content">
-				            <strong><?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?></strong><br>
-				            <em>Click to open external site</em>
-				        </div>
-				    </a>
-				</div>
-
-																    <br><br>
-																        <?php endif; ?>
-
-								        <!-- PDF preview -->
-								        <?php if ($row['biog'] !== 'pdf/'): ?>
-								            <div class="pdf">
-								                <button onclick="myFunction()">ΕΠΙΣΥΝΑΠΤΟΜΕΝΟ (ΑΝΟΙΓΜΑ/ΚΛΕΙΣΜΙΟ)</button>
-								                <div id="pdf" style="display: none;">
-								                    <p>
-								                        <iframe src="<?php echo htmlspecialchars($row['biog']) ?>" width="1000px" height="1000px"></iframe>
-								                    </p>
-								                </div>
-								            </div>
-								        <?php endif; ?>
+																				        <div class="link-preview">
+								    <a href="<?php echo htmlspecialchars($row['link']); ?>" target="_blank">
+								        <img
+								            src="https://www.google.com/s2/favicons?sz=64&domain=<?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?>"
+								            alt="favicon"
+								        >
+								        <div class="link-preview-content">
+								            <strong><?php echo htmlspecialchars(parse_url($row['link'], PHP_URL_HOST)); ?></strong><br>
+								            <em>Click to open external site</em>
+								        </div>
+								    </a>
+								</div><br><br>
+				                <?php endif; ?>
+		                <!-- PDF preview -->
+		                    <?php if ($row['biog'] !== 'pdf/'): ?>
+		                        <div class="pdf">
+		                            <button onclick="myFunction()">ΕΠΙΣΥΝΑΠΤΟΜΕΝΟ (ΑΝΟΙΓΜΑ/ΚΛΕΙΣΜΙΟ)</button>
+		                            <div id="pdf" style="display: none;">
+		                                <p>
+		                                    <iframe src="<?php echo htmlspecialchars($row['biog']) ?>" width="1000px" height="1000px"></iframe>
+		                                </p>
+		                            </div>
+		                        </div>
+		                    <?php endif; ?>
 
         <!-- Entry details -->
         <div class="box">

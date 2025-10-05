@@ -28,7 +28,8 @@
     <img src="<?php echo isset($fetch_info['profilePic']) ? $fetch_info['profilePic'] : './profilepics/beard.png'; ?>" alt="">
 </div>
 <div class="user">
-    <h3>ΧΑΙΡΕ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <?php echo $fetch_info['firstName'] ?></h3>
+    <h3>ΧΑΙΡΕ
+      <?php echo $fetch_info['firstName'] ?></h3>
   </a>
   </div>
 </section>
@@ -43,6 +44,7 @@
           <li><a href="#modal" data-toggle="modal" data-target="#aboutModal">ΟΔΗΓΙΕΣ</a></li>
           <li><a href="#modal" data-toggle="modal" data-target="#entry">ΕΙΣΑΓΩΓΗ ΑΝΑΡΤΗΣΗΣ</a></li>
           <li> <a href="data.html" target="_blank">ΙΔΙΩΤΙΚΟΤΗΤΑ</a></li>
+          <li><a href="https://elpe.eu5.org/article.php?eid=53&reviewtype=%CE%9A%CE%91%CE%A4%CE%91%CE%A3%CE%A4%CE%91%CE%A4%CE%99%CE%9A%CE%9F&title=%CE%9D%CE%9F%CE%9C%CE%9F%CE%98%CE%95%CE%A3%CE%99%CE%91">ΚΑΤΑΣΤΑΤΙΚΟ</a></li>
           <li><a href="logout-user.php">ΑΠΟΣΥΝΔΕΣΗ</a></li>
         </ul>
       </nav>

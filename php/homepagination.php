@@ -24,6 +24,9 @@
 
       if ($queryResult > 0) {
           while ($row = mysqli_fetch_assoc($result)) {
+              if ($row['reviewtype'] === 'ΚΑΤΑΣΤΑΤΙΚΟ') {
+                  continue;
+              }
               // https://www.delftstack.com/howto/php/how-to-convert-a-date-to-the-timestamp-in-php/
               $timestamp = $row['createdOn'];
               $date      = date("d-m-Y", strtotime($timestamp));
@@ -76,14 +79,14 @@
 </div>
 </div>
 <div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC; width: 200px; background:white;'>
-<strong>Page                                                                                                                                                                                                                                                                                                                                                                                                                                     <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
+<strong>Page                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
 </div>
 
 <ul class="pagination">
 	<?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } ?>
 
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no <= 1) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no > 1) {echo "href='?page_no=$previous_page'";}?>>Previous</a>
+	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no <= 1) {echo "class='disabled'";}?>>
+	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no > 1) {echo "href='?page_no=$previous_page'";}?>>Previous</a>
 	</li>
 
     <?php
@@ -138,8 +141,8 @@
         }
     ?>
 
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no >= $total_no_of_pages) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no < $total_no_of_pages) {echo "href='?page_no=$next_page'";}?>>Next</a>
+	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no >= $total_no_of_pages) {echo "class='disabled'";}?>>
+	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no < $total_no_of_pages) {echo "href='?page_no=$next_page'";}?>>Next</a>
 	</li>
     <?php if ($page_no < $total_no_of_pages) {
         echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";

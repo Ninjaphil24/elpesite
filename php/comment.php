@@ -24,7 +24,7 @@
                         <audio controls src='<?php echo htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8') ?>'></audio>
                     <?php
                     } else {?>
-                                <h4><?php echo nl2br(htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8'), false) ?></h4>
+                        <h4><?php echo nl2br(htmlspecialchars($row['comment'], ENT_QUOTES, 'UTF-8'), false) ?></h4>
                     <?php
                         }
                                 // Edit Button
@@ -63,7 +63,10 @@
                 <span>&nbsp;&nbsp;Insert&nbsp;&nbsp;</span>
             </button>
         </form>
-       <?php } else {?>
+       <?php
+           } elseif ($reviewtype != 'ΚΑΤΑΣΤΑΤΙΚΟ') {
+               //    } else {
+           ?>
         <div class='commentsin'>
             <form method='post'>
                 <textarea placeholder='Write a comment.' type='text' name='comment' id='comment'></textarea>
@@ -73,10 +76,10 @@
                 <button type='submit' name='insert' value='insert' style='padding:5px;'><span>&nbsp;&nbsp;Insert&nbsp;&nbsp;</span></button>
 
             </form>
+            <button id="recordBtn">🎙 Hold to Record</button>
+            <audio id="audioPreview" controls style="display:none;"></audio>
        <?php }
        ?>
-<button id="recordBtn">🎙 Hold to Record</button>
-<audio id="audioPreview" controls style="display:none;"></audio>
 
 <form method="post" enctype="multipart/form-data">
     <input type="hidden" name="eid" value="<?php echo $eid; ?>">
