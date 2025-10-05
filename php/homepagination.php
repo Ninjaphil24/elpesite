@@ -22,52 +22,42 @@
       $result      = mysqli_query($con, $sql);
       $queryResult = mysqli_num_rows($result);
 
-      if ($queryResult > 0) {
-          while ($row = mysqli_fetch_assoc($result)) {
-              if ($row['reviewtype'] === 'ΚΑΤΑΣΤΑΤΙΚΟ') {
-                  continue;
-              }
-              // https://www.delftstack.com/howto/php/how-to-convert-a-date-to-the-timestamp-in-php/
-              $timestamp = $row['createdOn'];
-              $date      = date("d-m-Y", strtotime($timestamp));
+      while ($row = mysqli_fetch_assoc($result)) {
+          if ($row['reviewtype'] === 'ΚΑΤΑΣΤΑΤΙΚΟ') {
+              continue;
+          }
 
-              // $dateunix = new DateTime($timestamp);
-              // $timeunix = $dateunix->getTimestamp();
-              // $fiveSeconds = 5;
-              // $t3600secs = 3600;
-              // $sum = $timeunix + $fiveSeconds;
-              // $unixnow = time()+3600;
-              // https://www.javatpoint.com/php-adding-two-numbers
-              // if($unixnow<$sum)echo "<span>";
+          $timestamp = $row['createdOn'];
+          $date      = date("d-m-Y", strtotime($timestamp));
 
-              echo "<a href='article.php?eid=" . $row['eid'] . "&reviewtype=" . $row['reviewtype'] . "&title=" . $row['title'] . "'>
+          echo "<li>
+        <a href='article.php?eid=" . $row['eid'] .
+          "&reviewtype=" . urlencode($row['reviewtype']) .
+          "&title=" . urlencode($row['title']) . "'>";
 
-        <li>
-    <p>" . htmlspecialchars($row['reviewtype']) . "<br>
-    <h5>" . htmlspecialchars($row['title']) . "</h5><br>
-    ΗΜΕΡΟΜΗΝΙΑ ΑΝΑΡΤΗΣΗΣ:&nbsp;" . htmlspecialchars($date) . "</p>
-    <hr>";
+          echo "<p>" . htmlspecialchars($row['reviewtype']) . "<br>
+          <h5>" . htmlspecialchars($row['title']) . "</h5><br>
+          ΗΜΕΡΟΜΗΝΙΑ ΑΝΑΡΤΗΣΗΣ:&nbsp;" . htmlspecialchars($date) . "</p>
+          <hr>";
 
-              if (! empty($row['link'])) {
-                  $host = parse_url($row['link'], PHP_URL_HOST);
-                  echo "
-    <div class='link-preview'>
-        <a href='" . htmlspecialchars($row['link'], ENT_QUOTES) . "' target='_blank'>
-            <img src='https://www.google.com/s2/favicons?sz=64&domain=" . htmlspecialchars($host) . "' alt='favicon'>
-            <div class='link-preview-content'>
-                <strong>" . htmlspecialchars($host) . "</strong>
-                <em>Click to open external site</em>
-            </div>
-        </a>
-    </div>
-    <br>";
-              }
-
-              echo "</li><br>
+          if (! empty($row['link'])) {
+              $host = parse_url($row['link'], PHP_URL_HOST);
+              echo "
+        <div class='link-preview'>
+            <a href='" . htmlspecialchars($row['link'], ENT_QUOTES) . "' target='_blank'>
+                <img src='https://www.google.com/s2/favicons?sz=64&domain=" . htmlspecialchars($host) . "' alt='favicon'>
+                <div class='link-preview-content'>
+                    <strong>" . htmlspecialchars($host) . "</strong>
+                    <em>Click to open external site</em>
+                </div>
+            </a>
+        </div>
         <br>";
           }
 
+          echo "</a></li><br><br>";
       }
+
       mysqli_close($con);
   ?>
 </ul>
@@ -79,14 +69,14 @@
 </div>
 </div>
 <div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC; width: 200px; background:white;'>
-<strong>Page                                                                                                                                                                                                                                                                                                                                                                                                                                                             <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
+<strong>Page                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <?php echo $page_no . " of " . $total_no_of_pages; ?></strong>
 </div>
 
 <ul class="pagination">
 	<?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } ?>
 
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no <= 1) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no > 1) {echo "href='?page_no=$previous_page'";}?>>Previous</a>
+	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no <= 1) {echo "class='disabled'";}?>>
+	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no > 1) {echo "href='?page_no=$previous_page'";}?>>Previous</a>
 	</li>
 
     <?php
@@ -141,8 +131,8 @@
         }
     ?>
 
-	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no >= $total_no_of_pages) {echo "class='disabled'";}?>>
-	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no < $total_no_of_pages) {echo "href='?page_no=$next_page'";}?>>Next</a>
+	<li	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	   	    <?php if ($page_no >= $total_no_of_pages) {echo "class='disabled'";}?>>
+	<a	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	  	   <?php if ($page_no < $total_no_of_pages) {echo "href='?page_no=$next_page'";}?>>Next</a>
 	</li>
     <?php if ($page_no < $total_no_of_pages) {
         echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";

@@ -2,7 +2,11 @@
 
     $eid = mysqli_real_escape_string($con, $_GET['eid']);
 
-    $sql = "SELECT * FROM comments INNER JOIN usertable ON comments.userID = usertable.id INNER JOIN entry ON comments.entryID = entry.eid WHERE entryID = '$eid' ORDER BY comments.cid";
+    $sql = "SELECT * FROM comments
+            LEFT JOIN usertable ON comments.userID = usertable.id
+            INNER JOIN entry ON comments.entryID = entry.eid
+            WHERE entryID = '$eid'
+            ORDER BY comments.cid";
 
     $result       = mysqli_query($con, $sql);
     $queryResults = mysqli_num_rows($result);
@@ -12,10 +16,16 @@
             <div class='reviewinfo'>
             <img src='<?php echo isset($row['profilePic']) ? $row['profilePic'] : './profilepics/beard.png'; ?>'>
             <h5>
-                <?php echo htmlspecialchars($row['firstName'], ENT_QUOTES, 'UTF-8'); ?>&nbsp;
-                <?php echo htmlspecialchars($row['lastName'], ENT_QUOTES, 'UTF-8'); ?>&nbsp;
-                on&nbsp;<?php echo htmlspecialchars($row['commentCreatedOn'], ENT_QUOTES, 'UTF-8'); ?>&nbsp;
-                wrote
+               <?php
+                   if (empty($row['firstName']) && empty($row['lastName'])) {
+                           echo "<em>(deleted user)</em>";
+                       } else {
+                           echo htmlspecialchars($row['firstName'], ENT_QUOTES, 'UTF-8') . ' ' .
+                           htmlspecialchars($row['lastName'], ENT_QUOTES, 'UTF-8');
+                       }
+                       ?>
+    &nbsp;on&nbsp;<?php echo htmlspecialchars($row['commentCreatedOn'], ENT_QUOTES, 'UTF-8'); ?>&nbsp;wrote
+
             </h5>
             </div>
             <div class='comment'>
