@@ -3,7 +3,7 @@ session_start();
 require_once 'connection.php';
 require_once 'tcpdf/tcpdf.php';
 
-// Fetch logged-in user info (based on your usual session/cookie logic)
+// Fetch logged-in user info
 if (! empty($_COOKIE["email"])) {
     $email    = $_COOKIE["email"];
     $password = $_COOKIE["password"];
@@ -26,19 +26,29 @@ if ($email != false && $password != false) {
     die("Not logged in.");
 }
 
+// Dates
+$today  = date('d/m/Y');
+$expiry = date('d/m/Y', strtotime('+3 months'));
+
 // Create PDF
 $pdf = new TCPDF();
 $pdf->AddPage();
 $pdf->SetFont('dejavusans', '', 14);
 
-// Title / header
+// Header / Title
 $pdf->Cell(0, 10, 'Ένωση Λυρικών Πρωταγωνιστών Ελλάδος', 0, 1, 'C');
-$pdf->Ln(15);
+$pdf->Ln(10);
 
-// Main text
+// Issue date
+$pdf->SetFont('dejavusans', '', 11);
+$pdf->Cell(0, 10, "Ημερομηνία έκδοσης: {$today}", 0, 1, 'R');
+$pdf->Ln(10);
+
+// Main certificate text
 $pdf->SetFont('dejavusans', '', 12);
 $text = "Έκδοση πιστοποιητικού για {$firstName} {$lastName} "
-    . "για τη χρήση για εποχικό επίδομα.";
+    . "για τη χρήση για εποχικό επίδομα. "
+    . "Ισχύ για 3 μήνες, μέχρι την {$expiry}.";
 $pdf->MultiCell(0, 10, $text, 0, 'L', false);
 $pdf->Ln(20);
 
@@ -48,7 +58,7 @@ $pdf->MultiCell(0, 10, "Υπογραφή,", 0, 'L');
 $pdf->Ln(10);
 $pdf->MultiCell(0, 10, "Λυδία Αγγελοπούλου, Πρόεδρος ΕΛΠΕ.", 0, 'L');
 
-// Optional footer
+// Footer
 $pdf->SetY(-20);
 $pdf->SetFont('dejavusans', '', 10);
 $pdf->Cell(0, 10, 'ΕΛΠΕ – Ένωση Λυρικών Πρωταγωνιστών Ελλάδος', 0, 0, 'C');
