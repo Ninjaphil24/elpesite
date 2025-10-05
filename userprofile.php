@@ -58,9 +58,13 @@
                 //         echo '<li><a href="boardmembers.php">ΧΩΡΟΣ_ΔΣ</a></li>';
                 // }
             ?>
+
             <li><a href="new-password.php">ΑΛΛΑΓΗ_ΚΩΔΙΚΟΥ</a></li>
         </ul>
     </nav>
+    <form method="post" action="certificatepdf.php" target="_blank">
+        <button type="submit" name="generate_certificate">Έκδοση πιστοποιητικού</button>
+    </form>
     <br>
     <?php if (isset($fetch_info['profilePic'])) {
             echo '
